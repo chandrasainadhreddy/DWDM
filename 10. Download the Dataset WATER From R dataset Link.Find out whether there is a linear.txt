@@ -1,0 +1,40 @@
+# Load the necessary dataset
+# Since the "water" dataset may not be part of default R packages, it might be part of additional datasets. 
+# Alternatively, we can create a sample dataset for demonstration. 
+# Assuming 'water' dataset is available, or if it's provided by the user, here's the process:
+
+# For the purpose of this example, let's assume the water dataset is available in R.
+# Use data() function to check if the dataset is preloaded in your R version.
+
+# Load the dataset (assuming it's available)
+# data("water")  # Uncomment this if 'water' is part of your R environment
+
+# If not available, let's manually create a small hypothetical "water" dataset as an example:
+water <- data.frame(
+  hardness = c(63, 42, 83, 55, 64, 79, 37, 85, 80, 63, 95, 54, 36, 80, 50, 73),
+  mortality = c(1520, 1670, 1360, 1630, 1600, 1240, 1550, 1370, 1320, 1500, 1250, 1570, 1690, 1300, 1640, 1390)
+)
+
+# 1. Plot the data to visualize the relationship between hardness and mortality
+plot(water$hardness, water$mortality, 
+     main = "Scatter Plot of Mortality vs Hardness", 
+     xlab = "Hardness", 
+     ylab = "Mortality", 
+     col = "blue", 
+     pch = 19)
+
+# 2. Fit a linear regression model
+linear_model <- lm(mortality ~ hardness, data = water)
+
+# Print the summary of the linear regression model
+print(summary(linear_model))
+
+# Add the regression line to the plot
+abline(linear_model, col = "red", lwd = 2)
+
+# 3. Predict the mortality for a hardness value of 88
+hardness_value <- 88
+predicted_mortality <- predict(linear_model, newdata = data.frame(hardness = hardness_value))
+
+# Print the predicted mortality
+print(paste("Predicted Mortality for Hardness = 88:", predicted_mortality))

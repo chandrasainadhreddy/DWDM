@@ -1,0 +1,50 @@
+# Create the diabetes dataset directly within the code
+data <- data.frame(
+  Age = c(25, 30, 35, 40, 45, 50, 55, 60, 65, 70),
+  BloodPressure = c(80, 85, 88, 90, 95, 100, 105, 110, 115, 120),
+  Glucose = c(110, 120, 150, 160, 170, 180, 190, 200, 210, 220),
+  Insulin = c(85, 95, 120, 130, 140, 150, 160, 170, 180, 190),
+  BMI = c(25.6, 28.1, 30.4, 32.5, 34.2, 36.7, 38.4, 40.2, 42.0, 44.5),
+  DiabetesPedigreeFunction = c(0.351, 0.672, 0.789, 0.482, 0.623, 0.571, 0.527, 0.608, 0.663, 0.723),
+  Outcome = c(0, 1, 1, 1, 0, 1, 0, 1, 1, 0)
+)
+
+# --- Linear Regression: Diabetes Outcome based on Age ---
+linear_model <- lm(Outcome ~ Age, data = data)
+
+# Summary of the linear regression model
+print("Linear Regression Model Summary (Age vs Outcome):")
+print(summary(linear_model))
+
+# Plot the linear regression: Diabetes Outcome vs Age
+plot(data$Age, data$Outcome, 
+     main = "Linear Regression: Diabetes Outcome vs Age",
+     xlab = "Age", 
+     ylab = "Diabetes Outcome",
+     col = "blue", 
+     pch = 19)   # Scatter plot for Age vs Outcome
+
+# Add the linear regression line to the plot
+abline(linear_model, col = "red", lwd = 2)  # Regression line
+
+# --- Multiple Regression: Diabetes Outcome based on multiple factors ---
+multiple_model <- lm(Outcome ~ Age + BloodPressure + Glucose + Insulin + BMI + DiabetesPedigreeFunction, data = data)
+
+# Summary of the multiple regression model
+print("Multiple Regression Model Summary (Multiple Factors vs Outcome):")
+print(summary(multiple_model))
+
+# Extract and print the regression coefficients
+coefficients <- summary(multiple_model)$coefficients
+print("Multiple Regression Coefficients:")
+print(coefficients)
+
+# Visualize the coefficients of the multiple regression model using a bar plot
+barplot(coefficients[, "Estimate"], 
+        names.arg = rownames(coefficients), 
+        main = "Multiple Regression Coefficients",
+        xlab = "Variables", 
+        ylab = "Coefficient Estimate", 
+        col = "lightblue", 
+        horiz = FALSE, 
+        las = 2)  # Rotate labels for better readability

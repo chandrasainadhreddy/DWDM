@@ -1,0 +1,29 @@
+# Given data
+sales_prices <- c(5, 10, 11, 13, 15, 35, 50, 55, 72, 92, 204, 215)
+
+# (a) Equal-frequency (equi-depth) partitioning
+# Split data into three bins with approximately equal numbers of records.
+equal_frequency_bins <- split(sales_prices, cut(seq_along(sales_prices), breaks=3, labels=FALSE))
+equal_frequency_bins
+
+# (b) Equal-width partitioning
+# Define the width of each bin
+min_value <- min(sales_prices)
+max_value <- max(sales_prices)
+num_bins <- 3
+bin_width <- (max_value - min_value) / num_bins
+
+# Define the bin edges
+bin_edges <- seq(min_value, max_value, by = bin_width)
+
+# Split the data based on equal-width bins
+equal_width_bins <- split(sales_prices, cut(sales_prices, breaks = bin_edges, include.lowest = TRUE))
+equal_width_bins
+
+# (c) Clustering using k-means clustering
+set.seed(123)  # For reproducibility
+kmeans_result <- kmeans(sales_prices, centers = 3)
+
+# Group the sales prices according to clusters
+clustered_bins <- split(sales_prices, kmeans_result$cluster)
+clustered_bins

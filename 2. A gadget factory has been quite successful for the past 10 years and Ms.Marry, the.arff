@@ -1,0 +1,11 @@
+@relation factory_expansion
+
+@attribute Decision {Expand, DoNotExpand}
+@attribute Economy {Good, Bad}
+@attribute Revenue numeric
+
+@data
+Expand,Good,7
+Expand,Bad,3
+DoNotExpand,Good,4
+DoNotExpand,Bad,1.5

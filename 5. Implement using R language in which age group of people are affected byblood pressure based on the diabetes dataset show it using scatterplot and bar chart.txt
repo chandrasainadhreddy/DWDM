@@ -1,0 +1,41 @@
+# Creating a simulated diabetes dataset
+diabetes_data <- data.frame(
+  Age = c(25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80),
+  BloodPressure = c(80, 85, 88, 90, 95, 100, 105, 110, 115, 120, 125, 130),
+  Glucose = c(110, 120, 140, 160, 170, 180, 190, 200, 210, 220, 230, 240),
+  Insulin = c(85, 90, 100, 120, 130, 140, 150, 160, 170, 180, 190, 200),
+  BMI = c(22.5, 23.0, 24.5, 26.0, 28.5, 30.0, 32.5, 34.0, 36.0, 38.0, 40.0, 42.0),
+  DiabetesPedigreeFunction = c(0.2, 0.3, 0.4, 0.5, 0.45, 0.35, 0.55, 0.65, 0.75, 0.85, 0.9, 1.0),
+  Outcome = c(0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1)
+)
+
+# Step 1: Saving the simulated dataset as a CSV file
+write.csv(diabetes_data, "diabetes.csv", row.names = FALSE)
+
+
+
+# Step 2: View the structure of the dataset to understand it
+str(diabetes_data)
+
+# Step 3: Creating Age groups (e.g., <30, 30-40, 40-50, 50-60, >60)
+diabetes_data$AgeGroup <- cut(diabetes_data$Age, breaks = c(-Inf, 30, 40, 50, 60, Inf),
+                              labels = c("<30", "30-40", "40-50", "50-60", ">60"))
+
+# Step 4: Scatter plot: Blood Pressure vs Age using base R
+plot(diabetes_data$Age, diabetes_data$BloodPressure, 
+     main = "Scatter Plot: Blood Pressure vs Age", 
+     xlab = "Age", 
+     ylab = "Blood Pressure",
+     col = "blue", 
+     pch = 19)
+
+# Step 5: Calculate average blood pressure for each age group
+bp_by_agegroup <- aggregate(BloodPressure ~ AgeGroup, data = diabetes_data, FUN = mean)
+
+# Step 6: Bar chart: Average Blood Pressure by Age Group using base R
+barplot(bp_by_agegroup$BloodPressure, 
+        names.arg = bp_by_agegroup$AgeGroup,
+        col = "lightblue", 
+        main = "Bar Chart: Average Blood Pressure by Age Group",
+        xlab = "Age Group", 
+        ylab = "Average Blood Pressure")

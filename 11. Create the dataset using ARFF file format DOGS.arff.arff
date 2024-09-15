@@ -1,0 +1,15 @@
+@RELATION market_basket
+
+@ATTRIBUTE Hot_Dogs {0,1}
+@ATTRIBUTE Buns {0,1}
+@ATTRIBUTE Ketchup {0,1}
+@ATTRIBUTE Coke {0,1}
+@ATTRIBUTE Chips {0,1}
+
+@DATA
+1, 1, 1, 0, 0    % T1: Hot Dogs, Buns, Ketchup
+1, 1, 0, 0, 0    % T2: Hot Dogs, Buns
+1, 0, 0, 1, 1    % T3: Hot Dogs, Coke, Chips
+0, 0, 0, 1, 1    % T4: Chips, Coke
+0, 0, 1, 0, 1    % T5: Chips, Ketchup
+1, 0, 0, 1, 1    % T6: Hot Dogs, Coke, Chips
